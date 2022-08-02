@@ -1,0 +1,12 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  always:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/print-info

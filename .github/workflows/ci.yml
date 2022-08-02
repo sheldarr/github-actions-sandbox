@@ -10,12 +10,7 @@ jobs:
   always:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo ${{ github.event_name }}
-      - if: ${{ github.event_name == 'pull_request' }}
-        run: echo pull_request
-      - if: ${{ github.event_name == 'push' }}
-        run: echo push
+      - uses: ./.github/actions/print-info
   if_merged:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
