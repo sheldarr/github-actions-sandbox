@@ -1,0 +1,14 @@
+name: "print-info"
+description: "Prints debug information about workflow and events"
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        echo ${{ github.event_name }}
+      shell: bash
+    - if: ${{ github.event_name == 'pull_request' }}
+      run: echo pull_request
+      shell: bash
+    - if: ${{ github.event_name == 'push' }}
+      run: echo push
+      shell: bash
