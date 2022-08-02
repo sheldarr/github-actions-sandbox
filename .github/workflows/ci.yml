@@ -7,11 +7,14 @@ on:
       - master
 
 jobs:
-  always:
+  composite-action:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/print-info
+  reusable-workflow:
+    uses: ./.github/workflows/print-info.yml
+
   if_merged:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
