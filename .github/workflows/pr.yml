@@ -11,5 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/print-info
+      - run: echo ${{ github.event.pull_request.head.sha }}
   reusable-workflow:
     uses: ./.github/workflows/print-info.yml
