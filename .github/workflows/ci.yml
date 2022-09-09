@@ -6,7 +6,20 @@ on:
     branches:
       - master
 
+env:
+  SOME_VERSION: 1.0
+
 jobs:
+  export-env:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/export-env
+  use-exported-env:
+    runs-on: ubuntu-latest
+    needs: [export-env]
+    steps:
+      - run: echo SOME_VERSION ${{ steps.export-env.outputs.SOME_VERSION }}
   composite-action:
     runs-on: ubuntu-latest
     steps:

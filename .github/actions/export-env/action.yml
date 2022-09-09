@@ -1,0 +1,15 @@
+name: "export-env"
+description: "Exports env variable as output"
+outputs:
+  SOME_VERSION:
+    description: "SOME_VERSION"
+    value: ${{ steps.export.outputs.SOME_VERSION }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: export
+      shell: bash
+      run: |
+        echo "SOME_VERSION: $SOME_VERSION"
+        echo "::set-output name=SOME_VERSION::$SOME_VERSION"
