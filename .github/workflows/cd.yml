@@ -8,7 +8,7 @@ jobs:
   params:
     runs-on: ubuntu-latest
     outputs:
-      TARGET_ENVIRONMENT: ${{ steps.determine-target-environment.outputs.CLIENT_VERSION }}
+      TARGET_ENVIRONMENT: ${{ steps.determine-target-environment.outputs.TARGET_ENVIRONMENT }}
     steps:
       - uses: actions/checkout@v3
       - id: determine-target-environment
