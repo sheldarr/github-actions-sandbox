@@ -19,7 +19,9 @@ jobs:
   check-environment:
     needs: [params]
     runs-on: ubuntu-latest
+    environment: ${{ needs.params.outputs.TARGET_ENVIRONMENT }}
     steps:
       - uses: actions/checkout@v3
+      - run: echo "${{ env.GITHUB_REF_NAME }}"
       - run: echo "${{ needs.params.outputs.TARGET_ENVIRONMENT }}"
       - run: echo "${{ env.SSH_HOST }}"
