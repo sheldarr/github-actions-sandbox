@@ -8,8 +8,18 @@ env:
   SOME_VERSION: 1.0
 
 jobs:
+  params:
+    runs-on: ubuntu-latest
+    outputs:
+      TARGET_ENVIRONMENT: ${{ steps.determine-target-environment.outputs.CLIENT_VERSION }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: determine-target-environment
+        run: echo "::set-output name=TARGET_ENVIRONMENT::${{ env.GITHUB_REF_NAME === 'production' && 'master' || 'staging }}"
   check-environment:
+    needs: [params]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: echo "${{ needs.params.outputs.TARGET_ENVIRONMENT }}"
       - run: echo "${{ env.SSH_HOST }}"
