@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: determine-target-environment
-        run: echo "::set-output name=TARGET_ENVIRONMENT::${{ env.GITHUB_REF_NAME === 'production' && 'master' || 'staging }}"
+        run: echo "::set-output name=TARGET_ENVIRONMENT::${{ env.GITHUB_REF_NAME == 'production' && 'master' || 'staging' }}"
   check-environment:
     needs: [params]
     runs-on: ubuntu-latest
