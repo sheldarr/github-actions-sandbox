@@ -10,7 +10,8 @@ jobs:
     outputs:
       TARGET_ENVIRONMENT: ${{ steps.determine-target-environment.outputs.TARGET_ENVIRONMENT }}
     steps:
-      - uses: actions/checkout@v3
+      - run: echo "$GITHUB.REPOSITORY"
+      - run: echo "$GITHUB_CONTEXT"
       - id: determine-target-environment
         run: echo "::set-output name=TARGET_ENVIRONMENT::${{ env.GITHUB_REF_NAME == 'master' && 'production' || 'staging' }}"
   check-environment:
