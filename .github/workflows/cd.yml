@@ -11,7 +11,7 @@ jobs:
       TARGET_ENVIRONMENT: ${{ steps.determine-target-environment.outputs.TARGET_ENVIRONMENT }}
     steps:
       - run: echo $GITHUB_REF
-      - run: echo "$GITHUB_REF_NAME
+      - run: echo "$GITHUB_REF_NAME"
       - id: determine-target-environment
         run: echo "::set-output name=TARGET_ENVIRONMENT::${{ env.GITHUB_REF_NAME == 'master' && 'production' || 'staging' }}"
   check-environment:
