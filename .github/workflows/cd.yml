@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - master
+      - staging
+
+env:
+  SOME_VERSION: 1.0
+
+jobs:
+  check-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "${{ env.SSH_HOST }}"
