@@ -12,6 +12,8 @@ jobs:
     steps:
       - run: echo $GITHUB_REF
       - run: echo "$GITHUB_REF_NAME"
+      - run: echo "${{ 'someText1' }}"
+      - run: echo ${{ 'someText2' }}
       - id: determine-target-environment
         run: echo "::set-output name=TARGET_ENVIRONMENT::${{ env.GITHUB_REF_NAME == 'master' && 'production' || 'staging' }}"
   check-environment:
