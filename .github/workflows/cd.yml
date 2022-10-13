@@ -31,3 +31,4 @@ jobs:
       - run: echo $SSH_HOST
       - run: echo $TEST_VARIABLE
       - run: echo "${{ env.SSH_HOST }}"
+      - run: echo "${{ secrets.SSH_HOST }}"
