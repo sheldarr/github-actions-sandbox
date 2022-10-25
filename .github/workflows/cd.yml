@@ -22,8 +22,8 @@ jobs:
       - id: determine-target-environment
         run: echo "TARGET_ENVIRONMENT=${{ github.ref_name == 'master' && 'production' || 'staging' }}" >> $GITHUB_OUTPUT
       - id: prepare-nodes-matrix
-        # run: echo "NODES_MATRIX="[$(seq -s, ${{ secrets.NODES }})]"" >> $GITHUB_OUTPUT
-        run: echo "NODES_MATRIX="[$(seq -s, ${{ format('{0}', secrets.NODES) }})]"" >> $GITHUB_OUTPUT
+        run: echo "NODES_MATRIX="[$(seq -s, $(echo ${{ secrets.NODES }} | base64 --decode))]"" >> $GITHUB_OUTPUT
+        # run: echo "NODES_MATRIX="[$(seq -s, ${{ format('{0}', secrets.NODES) }})]"" >> $GITHUB_OUTPUT
   check-environment:
     needs: [params]
     runs-on: ubuntu-latest
