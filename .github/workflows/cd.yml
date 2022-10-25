@@ -22,7 +22,9 @@ jobs:
       - id: determine-target-environment
         run: echo "TARGET_ENVIRONMENT=${{ github.ref_name == 'master' && 'production' || 'staging' }}" >> $GITHUB_OUTPUT
       - id: prepare-nodes-matrix
-        run: echo "NODES_MATRIX=[$(seq -s, ${{ secrets.NODES }})]" >> $GITHUB_OUTPUT
+        run: |
+          echo "NODES_MATRIX=[$(seq -s, ${{ secrets.NODES }})]"
+          echo "NODES_MATRIX=[$(seq -s, ${{ secrets.NODES }})]" >> $GITHUB_OUTPUT
   check-environment:
     needs: [params]
     runs-on: ubuntu-latest
@@ -31,6 +33,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: echo $GITHUB_REF_NAME
       - run: echo ${{ needs.params.outputs.TARGET_ENVIRONMENT }}
+      - run: echo ${{ needs.params.outputs.NODES_MATRIX }}
       - run: echo $SSH_HOST
       - run: echo $TEST_VARIABLE
       - run: echo "${{ env.SSH_HOST }}"
