@@ -37,6 +37,10 @@ jobs:
       - run: echo $TEST_VARIABLE
       - run: echo "${{ env.SSH_HOST }}"
       - run: echo "${{ secrets.SSH_HOST }}"
+      - run: echo "1"
+      - run: echo "2"
+      - run: echo "KEK_1"
+      - run: echo "KEK_2"
   nodes:
     needs: [params]
     runs-on: ubuntu-latest
