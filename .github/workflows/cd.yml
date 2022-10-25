@@ -43,4 +43,4 @@ jobs:
       matrix:
         NODE: ${{ fromJSON(needs.params.outputs.NODES_MATRIX) }}
     steps:
-      - run: echo ${{ secrets[format('NODE_{0}', matrix.NODE)] }}
+      - run: echo ${{ secrets[format('NODE_{0}', matrix.NODE)] }} | sed 's/./& /g'
