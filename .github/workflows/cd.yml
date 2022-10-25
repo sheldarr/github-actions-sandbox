@@ -23,7 +23,7 @@ jobs:
         run: echo "TARGET_ENVIRONMENT=${{ github.ref_name == 'master' && 'production' || 'staging' }}" >> $GITHUB_OUTPUT
       - id: prepare-nodes-matrix
         run: |
-          echo "NODES_MATRIX="[$(seq -s, 2)]"" >> $GITHUB_OUTPUT
+          echo "NODES_MATRIX='[$(seq -s, 2)]'" >> $GITHUB_OUTPUT
   check-environment:
     needs: [params]
     runs-on: ubuntu-latest
@@ -42,6 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        NODE: ${{ needs.params.outputs.NODES_MATRIX }}
+        NODE: ${{ fromJSON(needs.params.outputs.NODES_MATRIX) }}
     steps:
       - run: echo ${{ secrets[format('NODE_{0}', matrix.NODE)] }}
