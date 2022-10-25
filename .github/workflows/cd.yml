@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       TARGET_ENVIRONMENT: ${{ steps.determine-target-environment.outputs.TARGET_ENVIRONMENT }}
+      NODES_MATRIX: ${{ steps.prepare-nodes-matrix.outputs.NODES_MATRIX }}
     steps:
       - run: echo $GITHUB_REF
       - run: echo "$GITHUB_REF_NAME"
@@ -19,7 +20,9 @@ jobs:
       - run: echo "${{ toJSON(github) }}"
       - run: env
       - id: determine-target-environment
-        run: echo "::set-output name=TARGET_ENVIRONMENT::${{ github.ref_name == 'master' && 'production' || 'staging' }}"
+        run: echo "TARGET_ENVIRONMENT=${{ github.ref_name == 'master' && 'production' || 'staging' }}" >> $GITHUB_OUTPUT
+      - id: prepare-nodes-matrix
+        run: echo "NODES_MATRIX=[$(seq -s, ${{ secrets.NODES }})]"" >> $GITHUB_OUTPUT
   check-environment:
     needs: [params]
     runs-on: ubuntu-latest
@@ -32,3 +35,11 @@ jobs:
       - run: echo $TEST_VARIABLE
       - run: echo "${{ env.SSH_HOST }}"
       - run: echo "${{ secrets.SSH_HOST }}"
+  nodes:
+    needs: [params]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NODE: ${{ needs.params.outputs.NODES_MATRIX }}
+    steps:
+      - run: echo ${{ secrets[format('NODE_{0}', matrix.NODE)] }}
