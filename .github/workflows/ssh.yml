@@ -1,0 +1,40 @@
+on:
+  push:
+    branches: [master]
+
+jobs:
+  ssh:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set KNOWN_HOSTS
+        run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ${{ secrets.SSH_HOST }})" >> $GITHUB_ENV
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ env.KNOWN_HOSTS }}
+      - name: "ssh command :"
+        continue-on-error: true
+        run: ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} <<EOF
+          ls
+          pwd
+          whoami
+          EOF
+      - name: "ssh command : |"
+        continue-on-error: true
+        run: |
+          ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} <<EOF
+          ls
+          pwd
+          whoami
+          EOF
+      - name: "ssh command : >"
+        continue-on-error: true
+        run: |
+          ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} <<EOF
+          ls
+          pwd
+          whoami
+          EOF
