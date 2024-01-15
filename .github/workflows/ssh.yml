@@ -17,12 +17,12 @@ jobs:
           known_hosts: ${{ env.KNOWN_HOSTS }}
       - name: "ssh command :"
         continue-on-error: true
-        run: ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} <<EOF
+        run: ssh -t ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} <<EOF
           ls
           pwd
           whoami
           EOF
-      - name: "ssh command : |"
+      - name: "ssh -t command : |"
         continue-on-error: true
         run: |
           ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} <<EOF
@@ -30,7 +30,7 @@ jobs:
           pwd
           whoami
           EOF
-      - name: "ssh command : >"
+      - name: "ssh -t command : >"
         continue-on-error: true
         run: |
           ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST}} <<EOF
