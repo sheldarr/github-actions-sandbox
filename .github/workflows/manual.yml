@@ -18,6 +18,10 @@ on:
         description: "Environment to run tests against"
         type: environment
         required: true
+      version:
+        description: "Version to deploy"
+        type: string
+        required: true
 
 jobs:
   log-the-inputs:
@@ -27,7 +31,14 @@ jobs:
           echo "Log level: $LEVEL"
           echo "Tags: $TAGS"
           echo "Environment: $ENVIRONMENT"
+          echo "Version: $VERSION"
         env:
           LEVEL: ${{ inputs.logLevel }}
           TAGS: ${{ inputs.tags }}
           ENVIRONMENT: ${{ inputs.environment }}
+          VERSION: ${{ inputs.version }}
+      - run: |
+          echo "Log level: ${{ inputs.logLevel }}"
+          echo "Tags: ${{ inputs.tags }}"
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Version: ${{ inputs.version }}"
