@@ -1,4 +1,4 @@
-on: [push]
+on: workflow_dispatch
 
 jobs:
   variables:
@@ -7,9 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - env:
-          VARIABLES: ${{ toJson(vars) }}
-          SECRETS: ${{ toJson(secrets) }}
+          ALL_VARIABLES: ${{ toJson(vars) }}
+          ALL_SECRETS: ${{ toJson(secrets) }}
         run: |
-          echo "$VARIABLES" > "variables"
-          echo "$SECRETS" > "secrets"
+          echo "$ALL_VARIABLES" > "variables"
+          echo "$ALL_SECRETS" > "secrets"
       - uses: mxschmitt/action-tmate@v3

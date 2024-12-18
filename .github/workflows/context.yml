@@ -1,10 +1,6 @@
 name: Display contexts
 
-on:
-  push:
-    branches:
-      - master
-      - staging
+on: workflow_dispatch
 
 jobs:
   contexts:
